@@ -1,0 +1,15 @@
+Corne Keymap Editor 1.7.0 validation
+f650124a7e9bcde0c465c1ee11c33427475f045338b6b2c6bd219e2f8249d2ec  source/corne.failed-f-keys.keymap.txt
+68892813212476f793ece33071652534302b842571cb064fbcbdcdb2a0d7fc20  source/corne.game-combo.repaired.keymap
+
+98-
+99:        Game {
+100-            timeout-ms = <50>;
+101-            key-positions = <40 41>;
+102-            layers = <0 5>;
+103-            bindings = <&tog 5>;
+104-        };
+
+PASS corne_left: full DTS syntax parsed; 6 normalized layers
+PASS corne_right: full DTS syntax parsed; 6 normalized layers
+Automated tests: 64 passed

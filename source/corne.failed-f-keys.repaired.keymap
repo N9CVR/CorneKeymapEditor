@@ -1,0 +1,201 @@
+/*
+ * PandaKB Corne V3 MX starter keymap
+ * Based on the owner's known-good Corne layout.
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/zmk/outputs.h>
+
+/* PandaKB QMK definition identifies 54 LEDs split 27/27.
+ * ZMK chain-length is specified per half on a split keyboard.
+ */
+&led_strip {
+    chain-length = <27>;
+};
+
+/ {
+    conditional_layers {
+    compatible = "zmk,conditional-layers";
+
+        adjust_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        L_Paren {
+            timeout-ms = <50>;
+            key-positions = <4 5>;
+            layers = <0>;
+            bindings = <&kp LPAR>;
+        };
+
+        R_Paren {
+            timeout-ms = <50>;
+            key-positions = <6 7>;
+            layers = <0>;
+            bindings = <&kp RPAR>;
+        };
+
+        L_Bracket {
+            timeout-ms = <50>;
+            key-positions = <16 17>;
+            layers = <0>;
+            bindings = <&kp LBKT>;
+        };
+
+        R_Bracket {
+            timeout-ms = <50>;
+            key-positions = <18 19>;
+            layers = <0>;
+            bindings = <&kp RBKT>;
+        };
+
+        L_Brace {
+            timeout-ms = <50>;
+            key-positions = <28 29>;
+            layers = <0>;
+            bindings = <&kp LBRC>;
+        };
+
+        R_Brace {
+            timeout-ms = <50>;
+            key-positions = <30 31>;
+            layers = <0>;
+            bindings = <&kp RBRC>;
+        };
+
+        Pipe {
+            timeout-ms = <50>;
+            key-positions = <34 35>;
+            layers = <0>;
+            bindings = <&kp PIPE>;
+        };
+
+        Backslash {
+            timeout-ms = <50>;
+            key-positions = <33 34>;
+            layers = <0>;
+            bindings = <&kp BSLH>;
+        };
+
+        BT-LED {
+            timeout-ms = <50>;
+            key-positions = <36 37>;
+            layers = <0>;
+            bindings = <&mo 4>;
+            slow-release;
+        };
+
+        Game {
+            timeout-ms = <50>;
+            key-positions = <40 41>;
+            layers = <0>;
+            bindings = <&tog 5>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base {
+            // -------------------------------------------------------------------------------------------------------
+            // |  TAB   |   Q    |   W    |   E    |   R    |   T    |   |   Y    |   U    |   I    |   O    |   P    |  BSPC  |
+            // |  CTRL  |   A    |   S    |   D    |   F    |   G    |   |   H    |   J    |   K    |   L    |   ;    |   '    |
+            // |  SHFT  |   Z    |   X    |   C    |   V    |   B    |   |   N    |   M    |   ,    |   .    |   /    |  ESC   |
+            //                            |  GUI   | NUMBER |  ENT   |   |  SPC   | F-KEYS |  ALT   |
+            display-name = "Base";
+            bindings = <
+   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U &kp I     &kp O   &kp P    &kp BSPC
+   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J &kp K     &kp L   &kp SEMI &kp SQT
+   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M &kp COMMA &kp DOT &kp FSLH &kp ESC
+                   &kp LGUI &mo 1 &kp RET      &kp SPACE &mo 2 &kp RALT
+            >;
+        };
+
+        numbers {
+            // -------------------------------------------------------------------------------------------------------
+            // |        |   1    |   2    |   3    |   4    |   5    |   |   6    |   7    |   8    |   9    |   0    |  DEL   |
+            // |        |        |        |        |        |        |   |  LFT   |  DWN   |   UP   |  RGT   |        |  END   |
+            // |        |        |        |        |        |        |   |  HOME  |  PGDN  |  PGUP  |        |        |        |
+            //                            |  GUI   |        |  ENT   |   |  SPC   |        |  ALT   |
+            display-name = "Numbers";
+            bindings = <
+                &trans  &kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp DEL
+                &trans  &trans  &trans  &trans  &trans  &trans  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans  &kp END
+                &trans  &trans  &trans  &trans  &trans  &trans  &kp HOME  &kp PG_DN  &kp PG_UP  &trans  &trans  &trans
+                &kp LGUI  &trans  &kp RET  &kp SPACE  &trans  &kp RALT
+            >;
+        };
+
+        f_keys {
+            // -------------------------------------------------------------------------------------------------------
+            // |  TAB   | K_WWW  |        |        |        |        |   |        |        |        |        |        |  DEL   |
+            // |  CTRL  |   F1   |   F2   |   F3   |   F4   |   F5   |   |   -    |   =    |   [    |   ]    |   \    |   `    |
+            // |  SHFT  |   F6   |   F7   |   F8   |   F9   |  F10   |   |   _    |   +    |   {    |   }    |   |    |   ~    |
+            //                            |  GUI   |        |  ENT   |   |  SPC   |        |  ALT   |
+            display-name = "F-Keys";
+            bindings = <
+                &kp TAB  &kp K_WWW  &none  &none  &none  &none  &none  &none  &none  &none  &none  &kp DEL
+                &kp LCTRL  &kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT  &kp BSLH  &kp GRAVE
+                &kp LSHFT  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &kp UNDER  &kp PLUS  &kp LBRC  &kp RBRC  &kp PIPE  &kp TILDE
+                &kp LGUI  &trans  &kp RET  &kp SPACE  &trans  &kp RALT
+            >;
+        };
+
+        mouseandnum {
+            // -------------------------------------------------------------------------------------------------------
+            // |        |  MOUL  |  MOUD  |  MOUU  |  MOUR  |        |   |   7    |   8    |   9    |   -    |        |  DEL   |
+            // |        |  SCL   |  SCD   |  SCU   |  SCR   |        |   |   4    |   5    |   6    |   +    |        |        |
+            // |  CAPS  |        |        |        |  MCLK  |        |   |   1    |   2    |   3    |   *    |   /    |  ENT   |
+            //                            |  LCLK  |        |  RCLK  |   |   0    |        |        |
+
+            display-name = "MouseAndNum";
+            bindings = <
+                &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &none  &kp 7  &kp 8  &kp 9  &kp MINUS  &none  &kp DEL
+                &none  &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &none  &kp 4  &kp 5  &kp 6  &kp PLUS  &none  &none
+                &kp CAPS  &none  &none  &none  &mkp MCLK  &none  &kp 1  &kp 2  &kp 3  &kp ASTRK  &kp FSLH  &kp RET
+                &mkp LCLK  &trans  &mkp RCLK  &kp 0  &trans  &none
+            >;
+        };
+
+        system {
+            // -------------------------------------------------------------------------------------------------------
+            // |   ~    |  BT0   |  BT1   |  BT2   |  BT3   |  BT4   |   |  SAI   |  BRI   |  HUI   | C_BRI_ |  VOLU  | PSCRN  |
+            // |        |        |        |  BLE   |  USB   |        |   |  LFT   |  DWN   |   UP   |  RGT   |  MUTE  |        |
+            // |        |        |        |        |        |        |   |  SAD   |  BRD   |  EFF   | C_BRI_ |  VOLD  | BTCLR  |
+            //                            |        |        |        |   |  PLAY  |        |        |
+            display-name = "System";
+            bindings = <
+                &kp TILDE  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &rgb_ug RGB_SAI  &rgb_ug RGB_BRI  &rgb_ug RGB_HUI  &kp C_BRI_UP  &kp C_VOL_UP  &kp PSCRN
+                &trans  &none  &none  &out OUT_BLE  &out OUT_USB  &none  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp C_MUTE  &none
+                &trans  &none  &none  &none  &none  &none  &rgb_ug RGB_SAD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF  &kp C_BRI_DN  &kp C_VOL_DN  &bt BT_CLR
+                &trans  &trans  &trans  &kp C_PLAY_PAUSE  &trans  &trans
+            >;
+        };
+
+        game {
+            // -------------------------------------------------------------------------------------------------------
+            // |        |        |        |        |        |        |   |        |        |        |        |        |        |
+            // |  SHFT  |        |        |        |        |        |   |        |        |        |        |        |        |
+            // |  CTRL  |        |        |        |        |        |   |        |        |        |        |        |        |
+            //                            |        |  SPC   |        |   |        |        |        |
+            display-name = "Game";
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &kp LSHFT  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &kp LCTRL  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &kp SPACE  &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+};
